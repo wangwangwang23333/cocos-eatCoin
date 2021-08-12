@@ -31,7 +31,12 @@ export default class Controller extends cc.Component {
     @property(cc.SpriteFrame)
     rightSprite:cc.SpriteFrame=null;
 
+    /*吃硬币动画*/
+    @property(cc.Prefab)
+    eatCoin:cc.Prefab=null;
+
     onLoad () {
+        this.node.zIndex=3;
         this.mapSize=cc.view.getVisibleSize();
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
@@ -123,6 +128,19 @@ export default class Controller extends cc.Component {
     onBeginContact(contact, selfCollider, otherCollider) {
         otherCollider.node.destroy();
         //播放动画
+        var newCoin=cc.instantiate(this.eatCoin);
+        console.log("no2");
+        newCoin.zIndex=2;
+        this.node.addChild(newCoin);
+        newCoin.setPosition(0,0);
+        newCoin.getComponent(cc.Animation)
+
+        newCoin.getComponent(cc.Animation).play();
+        
+
+        setTimeout(() => {
+            newCoin.destroy();
+        }, 300);
 
         //播放音效
         cc.audioEngine.play(this.gainCoin, false, 1);
