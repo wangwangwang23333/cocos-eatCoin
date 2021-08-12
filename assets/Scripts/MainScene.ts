@@ -46,6 +46,9 @@ export default class NewClass extends cc.Component {
     @property(cc.SpriteFrame)
     tianTangZhaiPic:cc.SpriteFrame=null;
 
+    @property(cc.SpriteFrame)
+    yanzihePic:cc.SpriteFrame=null;
+
     onLoad () {
         cc.director.getPhysicsManager().enabled=true;
         //cc.director.getPhysicsManager().debugDrawFlags = 1;
@@ -148,6 +151,9 @@ export default class NewClass extends cc.Component {
             }
             else if (spriteNode.spriteFrame.name=='guangChang'){
                 spriteNode.spriteFrame=this.tianTangZhaiPic;
+            }
+            else if (spriteNode.spriteFrame.name=='tianTangZhai'){
+                spriteNode.spriteFrame=this.yanzihePic;
             }
             else{
                 spriteNode.spriteFrame=this.jinZhaiPic;

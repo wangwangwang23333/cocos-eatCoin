@@ -21,6 +21,16 @@ export default class Controller extends cc.Component {
     @property(cc.AudioClip)
     gainCoin:cc.AudioClip=null;
 
+    /*人物形象*/
+    @property(cc.SpriteFrame)
+    frontSprite:cc.SpriteFrame=null;
+
+    @property(cc.SpriteFrame)
+    leftSprite:cc.SpriteFrame=null;
+
+    @property(cc.SpriteFrame)
+    rightSprite:cc.SpriteFrame=null;
+
     onLoad () {
         this.mapSize=cc.view.getVisibleSize();
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
@@ -47,6 +57,7 @@ export default class Controller extends cc.Component {
                 break;
             case cc.macro.KEY.d:
                 this.rightMoving=true;
+                
                 break;
         }
     }
@@ -82,18 +93,29 @@ export default class Controller extends cc.Component {
         if(this.leftMoving){
             if(!this.rightMoving){
                 //向左移动
+                this.node.getComponent(cc.Sprite).spriteFrame=this.leftSprite;
                 if(this.node.position.x>-this.mapSize.width/2){
                     this.node.setPosition(this.node.position.x-5,
                         this.node.position.y);
                 }
             }
+            else{
+                this.node.getComponent(cc.Sprite).spriteFrame=this.frontSprite;
+            }
         }
         else if (this.rightMoving){
             //向右移动
             if(this.node.position.x<this.mapSize.width/2){
+                this.node.getComponent(cc.Sprite).spriteFrame=this.rightSprite;
                 this.node.setPosition(this.node.position.x+5,
                     this.node.position.y);
             }
+            else{
+                this.node.getComponent(cc.Sprite).spriteFrame=this.frontSprite;
+            }
+        }
+        else{
+            this.node.getComponent(cc.Sprite).spriteFrame=this.frontSprite;
         }
     }
 
